@@ -28,7 +28,7 @@ def gaussian_fpeps(cfg: DictConfig):
     cfgh = cfg.hamiltonian
     t = cfgh.t
     D1X, D1Y = cfgh.D1X, cfgh.D1Y
-    delta, mu = cfgh.delta, cfgh.mu
+    doping, mu = cfgh.doping, cfgh.mu
 
     Tsize = 8 * Nv + 4
     T = initialT(in_file, Tsize)
@@ -39,7 +39,7 @@ def gaussian_fpeps(cfg: DictConfig):
 
     if cfgh.solve_mu:
         logging.info("Solving mu for given doping...")
-        mu = solve_mu(bz, delta, t, D1X, D1Y)
+        mu = solve_mu(bz, doping, t, D1X, D1Y)
 
     lossT = jit(runtime_loss(bz, Nv, t, D1X, D1Y, mu))
 
@@ -97,7 +97,7 @@ def gaussian_fpeps(cfg: DictConfig):
         "mu": mu,
         "D1X": D1X,
         "D1Y": D1Y,
-        "doping": delta,
+        "doping": doping,
         "t": t,
         "Lx": Lx,
         "Ly": Ly,
