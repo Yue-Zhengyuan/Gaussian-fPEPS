@@ -1,26 +1,24 @@
 params:
-    Nv: 2 # Number of virtual fermions on each bond
-    seed: 40 # Random seed
+  Nv: 1 # Number of virtual fermions on each bond
+  seed: 40 # Random seed
 
 lattice:
-    Lx: 50 # System size in x-direction
-    Ly: 50 # System size in y-direction
+  Lx: 50 # System size in x-direction
+  Ly: 50 # System size in y-direction
 
 hamiltonian:
-    t: 1.0 # Hoping amplitude
-    D1X: 0.5 # d-wave paring amplitude in x-direction
-    D1Y: -0.5 # d-wave paring amplitude in y-direction
-    delta: 0.0 # density of holes
-    mu: 0.0 # chemical potential
-    solve_mu_from_delta: false # whether to solve chemical potential from hole density
+  t: 1.0 # Hoping amplitude
+  D1X: 0.5 # d-wave paring amplitude in x-direction
+  D1Y: -0.5 # d-wave paring amplitude in y-direction
+  delta: 0.0 # density of holes
+  mu: 0.0 # chemical potential
+  solve_mu_from_delta: true # whether to solve chemical potential from hole density
 
 file:
-    LoadFile: "" # Load initial T from this file, if it exists
-    WriteFile: "./data/test.h5" # Write information about final Gaussian fPEPS to this file
-    SaveEachSteps: false
+  InFile: "" # Load initialization from this file, if it exists
+  OutDir: "./results/testrun/" # Write information about final Gaussian fPEPS to this folder
+  SaveEachSteps: false
 
 optimizer:
-    MaxIter: 300
-    gtol: 1E-7 # gtol for optimizer
-
-backend: cpu
+  MaxIter: 300
+  gtol: 1E-7 # gtol for optimizer

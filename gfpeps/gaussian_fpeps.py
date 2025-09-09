@@ -7,7 +7,7 @@ from .energy import runtime_loss
 from .loadwrite import initialT, savelog
 from .exact import energy_exact, solve_mu
 import logging
-
+from omegaconf import DictConfig
 import pymanopt
 from pymanopt.manifolds import Stiefel
 from pymanopt import Problem
@@ -16,12 +16,14 @@ from pymanopt.optimizers import ConjugateGradient
 jax.config.update("jax_enable_x64", True)
 
 
-def gaussian_fpeps(cfg):
+def gaussian_fpeps(cfg: DictConfig):
     # unpack cfg
     np.random.seed(cfg.params.seed)
     Nv = cfg.params.Nv
     Lx, Ly = cfg.lattice.Lx, cfg.lattice.Ly
-    LoadKey, WriteKey = cfg.file.LoadFile, cfg.file.WriteFile
+    in_file = cfg.file.InFile
+    out_dir = cfg.file.OutDir
+    out_file = out_dir + "data.h5"
 
     cfgh = cfg.hamiltonian
     t = cfgh.t
@@ -29,7 +31,7 @@ def gaussian_fpeps(cfg):
     delta, mu = cfgh.delta, cfgh.mu
 
     Tsize = 8 * Nv + 4
-    T = initialT(LoadKey, Tsize)
+    T = initialT(in_file, Tsize)
     U, S, V = np.linalg.svd(T)
     T = U @ V
 
@@ -102,13 +104,13 @@ def gaussian_fpeps(cfg):
         "Nv": Nv,
         "seed": cfg.params.seed,
     }
-    savelog(WriteKey, Xopt, lossT(Xopt), Eg, args)
+    savelog(out_file, Xopt, lossT(Xopt), Eg, args)
 
     if cfg.file.SaveEachSteps:
         for iter in range(len(log_cost)):
             Xopt = np.array(result.log["iterations"]["point"])[iter]
             savelog(
-                WriteKey[:-3] + f"-iter{iter}" + WriteKey[-3:],
+                out_dir + f"data-iter{iter}.h5",
                 Xopt,
                 lossT(Xopt),
                 Eg,

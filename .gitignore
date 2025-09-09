@@ -10,6 +10,7 @@ data/**
 __pycache__
 dist
 outputs
+results
 *.ipynb
 
 ### VisualStudioCode ###
