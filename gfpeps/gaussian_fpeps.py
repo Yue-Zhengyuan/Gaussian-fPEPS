@@ -37,7 +37,7 @@ def gaussian_fpeps(cfg: DictConfig):
 
     bz = BrillouinZone(Lx, Ly)
 
-    if cfgh.solve_mu_from_delta:
+    if cfgh.solve_mu:
         logging.info("Solving mu for given doping...")
         mu = solve_mu(bz, delta, t, D1X, D1Y)
 
@@ -89,7 +89,7 @@ def gaussian_fpeps(cfg: DictConfig):
         logging.info(f"{iter} \t {log_cost[iter]} \t {log_gnorm[iter]}")
 
     logging.info(
-        f"Optimization done!, final cost: {result.cost}, gnorm: {result.gradient_norm }"
+        f"Optimization done!, final cost: {result.cost}, gnorm: {result.gradient_norm}"
     )
 
     Xopt = result.point
