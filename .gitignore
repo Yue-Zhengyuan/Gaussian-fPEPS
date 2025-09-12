@@ -13,6 +13,7 @@ outputs
 results
 genJobs
 *.ipynb
+test*.*
 
 ### VisualStudioCode ###
 .vscode/*
