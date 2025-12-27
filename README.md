@@ -1,6 +1,6 @@
 # Gaussian-fPEPS
 
-Optimize a fermionic projected entangled pair state(fPEPS) with respect to a BCS mean field Hamiltonian.
+Optimize a fermionic projected entangled pair state(fPEPS) with respect to a BCS mean field Hamiltonian. Originally forked from https://github.com/TensorBFS/Gaussian-fPEPS.
 
 ## Python dependencies:
 
